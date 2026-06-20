@@ -48,10 +48,27 @@ The desktop agent should collect the following information.
 
 ## Collection Frequency
 
-Every:
+- Every 1 second, we POLL the OS asking about the focused window
+- The POLL is only used to observe
 
-```text
-10 seconds
+- Snapshot, say 10 seconds passed, now when i do the poll, i WILL record the event no matter what
+
+- Say the window title is changed, now i record the event immediately
+
+```
+POLL
+  ↓
+Observe state
+
+If change OR snapshot interval reached
+  ↓
+Create event
+  ↓
+Add to buffer
+
+Every 30 seconds
+  ↓
+Upload buffer
 ```
 
 ## Batch Upload Frequency
