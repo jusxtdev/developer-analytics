@@ -67,6 +67,7 @@ class Agent:
         # Upload every 30 seconds
         if now - self.session.last_upload_time >= self.get_upload_interval():
             self.session.last_upload_time = now
+            self.buffer.clear_buffer()
             print("Upload")
 
     def run(self):

@@ -13,12 +13,21 @@ class Buffer:
                 json.dump([], f)
 
     def append_to_buffer(self, event_obj):
-        with open(self.buffer_path, "r") as f:
-            data = json.load(f)
+        if not os.path.exists(self.buffer_path):
+            self.create_buffer_file()
+        data = []        
+        try:
+            with open(self.buffer_path, "r") as f:
+                data = json.load(f)    
+        except json.JSONDecodeError:
+            with open(self.buffer_path, "a") as f:
+                json.dump([], f)
 
         data.append(event_obj)
         with open(self.buffer_path, "w") as f:
             json.dump(data, f, indent=4)
 
     def clear_buffer(self):
-        pass
+        if os.path.exists(self.buffer_path):
+            with open(self.buffer_path, "w") as f:
+                json.dump([], f)
