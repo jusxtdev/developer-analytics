@@ -9,3 +9,18 @@ dependencies = [
     "pydantic>=2.13.4",
     "pywin32>=312",
 ]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.18",
+]
+
+[tool.ruff.lint.isort]
+force-single-line = true
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder"
+]
