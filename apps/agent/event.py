@@ -1,5 +1,6 @@
 from buffer import Buffer
 
+
 class Event:
     def __init__(self):
         self.last_title = None
@@ -9,12 +10,12 @@ class Event:
         self.timestamp = None
         self.idle = False
 
-    def logEvent(self, buffer : Buffer):
+    def logEvent(self, buffer: Buffer):
         event_obj = {
-            "timestamp" : self.timestamp ,
-            "title" : self.title,
-            "application" : self.application,
-            "isIdle": self.idle
+            "timestamp": self.timestamp,
+            "title": self.title,
+            "application": self.application,
+            "isIdle": self.idle,
         }
         buffer.append_to_buffer(event_obj)
 

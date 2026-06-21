@@ -27,13 +27,13 @@ class Agent:
     def get_upload_interval(self):
         return self.config["UPLOAD_INTERVAL"]
 
-    def initialize(self):        
+    def initialize(self):
         self.pollOS()
         self.event.updateState()
         self.event.logEvent(self.buffer)
 
     def pollOS(self):
-        
+
         # get the title of focused window
         hwnd = win32gui.GetForegroundWindow()
         title = win32gui.GetWindowText(hwnd)
