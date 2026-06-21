@@ -7,11 +7,23 @@ from session import Session
 from event import Event
 
 class Agent:
+    def __init__(self, config):
+        self.config = config
+        
+    def get_poll_interval(self):
+        return self.config["POLL_INTERVAL"]  
+      
+    def get_snapshot_interval(self):
+        return self.config["SNAPSHOT_INTERVAL"]
+    
+    def get_upload_interval(self):
+        return self.config["UPLOAD_INTERVAL"]
+    
+        
     def initialize(self, event:Event):
         self.pollOS(event)
         event.updateState()
         event.logEvent()
-        
     
     def pollOS(self, event : Event):
         # get the title of focused window
@@ -29,7 +41,7 @@ class Agent:
     
     def snapShot(self, now, session : Session):
         # log the event on every 10 seconds (snapshot)
-        if (now - session.last_snapshot_time >= 10):
+        if (now - session.last_snapshot_time >= self.get_snapshot_interval()):
             session.last_snapshot_time = now
             print("Snapshot")
 
@@ -42,7 +54,7 @@ class Agent:
             
     def upload(self, now, session :Session):
         # Upload every 30 seconds
-        if (now - session.last_upload_time >= 30):
+        if (now - session.last_upload_time >= self.get_upload_interval()):
             session.last_upload_time = now
             print("Upload")
     
@@ -59,4 +71,4 @@ class Agent:
             
             self.upload(now=now, session=session)
                 
-            time.sleep(1)
+            time.sleep(self.get_poll_interval())

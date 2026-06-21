@@ -1,0 +1,5 @@
+{
+    "POLL_INTERVAL" : 1,
+    "SNAPSHOT_INTERVAL" : 10,
+    "UPLOAD_INTERVAL" : 30
+}
