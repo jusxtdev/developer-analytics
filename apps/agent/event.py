@@ -5,9 +5,16 @@ class Event:
         self.application = None
         self.last_application = None
         self.timestamp = None
+        self.idle = False
 
     def logEvent(self):
-        print("logged")
+        event_obj = {
+            "timestamp" : self.timestamp ,
+            "title" : self.title,
+            "application" : self.application,
+            "isIdle": self.idle
+        }
+        print(event_obj)
 
     def updateState(self):
         self.last_title = self.title

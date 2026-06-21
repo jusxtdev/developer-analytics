@@ -42,11 +42,11 @@ class Agent:
         event.timestamp = datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
         return
 
-    def snapShot(self, now, session: Session):
+    def snapShot(self, now, session: Session, event: Event):
         # log the event on every 10 seconds (snapshot)
-        if now - session.last_snapshot_time >= self.get_snapshot_interval():
+        if ( now - session.last_snapshot_time >= self.get_snapshot_interval() ):
             session.last_snapshot_time = now
-            print("Snapshot")
+            event.logEvent()
 
     def windowChange(self, event: Event):
         # log the event on window change
@@ -56,7 +56,7 @@ class Agent:
                 and event.application != event.last_application
             ):
                 event.updateState()
-                print("Window Change")
+                event.logEvent()
 
     def upload(self, now, session: Session):
         # Upload every 30 seconds
@@ -71,7 +71,7 @@ class Agent:
             # get current time
             now = time.time()
 
-            self.snapShot(now=now, session=session)
+            self.snapShot(now=now, session=session, event=event)
 
             self.windowChange(event=event)
 
