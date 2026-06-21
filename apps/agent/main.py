@@ -1,4 +1,5 @@
 from agent import Agent
+from buffer import Buffer
 from config import ConfigManager
 from event import Event
 from session import Session
@@ -7,13 +8,15 @@ from session import Session
 def main():
     config_manager = ConfigManager()
 
-    agent = Agent(config_manager.get_config())
+    buffer = Buffer()
     session = Session()
     event = Event()
 
-    agent.initialize(event)
+    agent = Agent(config_manager.get_config(), session, event, buffer)
 
-    agent.run(event, session)
+    agent.initialize()
+
+    agent.run()
 
 
 main()
