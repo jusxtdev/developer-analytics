@@ -10,6 +10,7 @@ from win32 import win32process
 from services.buffer import Buffer
 from services.event import Event
 from services.session import Session
+from utils.idle import get_idle_duration
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +82,13 @@ class Agent:
             print("Upload")
             logger.info("Batch Uploaded")
 
+    def detect_idle(self):
+        idle_seconds = get_idle_duration()
+        if idle_seconds <= 5:
+            self.event.isIdle = False
+        else:
+            self.event.isIdle = True
+
     def run(self):
         logger.info("Application Started")
         while True:
@@ -88,6 +96,8 @@ class Agent:
 
             # get current time
             now = time.time()
+
+            self.detect_idle()
 
             self.snapShot(now)
 

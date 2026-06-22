@@ -8,14 +8,14 @@ class Event:
         self.application = None
         self.last_application = None
         self.timestamp = None
-        self.idle = False
+        self.isIdle = False
 
     def logEvent(self, buffer: Buffer):
         event_obj = {
             "timestamp": self.timestamp,
             "title": self.title,
             "application": self.application,
-            "isIdle": self.idle,
+            "isIdle": self.isIdle,
         }
         buffer.append_to_buffer(event_obj)
 

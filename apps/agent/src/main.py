@@ -3,9 +3,8 @@ from services.buffer import Buffer
 from services.config import ConfigManager
 from services.event import Event
 from services.instance_manager import InstanceManager
-from utils.logger_config import setup_logging
 from services.session import Session
-
+from utils.logger_config import setup_logging
 
 
 def main():
