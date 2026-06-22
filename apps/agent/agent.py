@@ -1,3 +1,4 @@
+import logging
 import time
 from datetime import UTC
 from datetime import datetime
@@ -9,6 +10,8 @@ from win32 import win32process
 from buffer import Buffer
 from event import Event
 from session import Session
+
+logger = logging.getLogger(__name__)
 
 
 class Agent:
@@ -28,9 +31,11 @@ class Agent:
         return self.config["UPLOAD_INTERVAL"]
 
     def initialize(self):
+        logger.info("Agent Initialized")
         self.pollOS()
         self.event.updateState()
         self.event.logEvent(self.buffer)
+        logger.info("Initial write Done")
 
     def pollOS(self):
 
@@ -60,8 +65,13 @@ class Agent:
                 self.event.title != self.event.last_title
                 and self.event.application != self.event.last_application
             ):
-                self.event.updateState()
                 self.event.logEvent(self.buffer)
+                logger.info(
+                    "Window changed: '%s' -> '%s'",
+                    self.event.last_title,
+                    self.event.title,
+                )
+                self.event.updateState()
 
     def upload(self, now):
         # Upload every 30 seconds
@@ -69,8 +79,10 @@ class Agent:
             self.session.last_upload_time = now
             self.buffer.clear_buffer()
             print("Upload")
+            logger.info("Batch Uploaded")
 
     def run(self):
+        logger.info("Application Started")
         while True:
             self.pollOS()
 
