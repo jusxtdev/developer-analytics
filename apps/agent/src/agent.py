@@ -9,6 +9,7 @@ from win32 import win32process
 
 from services.buffer import Buffer
 from services.event import Event
+from services.instance_manager import InstanceManager
 from services.session import Session
 from utils.idle import get_idle_duration
 
@@ -30,6 +31,9 @@ class Agent:
 
     def get_upload_interval(self):
         return self.config["UPLOAD_INTERVAL"]
+
+    def get_idle_interval(self):
+        return self.config["IDLE_INTERVAL"]
 
     def initialize(self):
         logger.info("Agent Initialized")
@@ -84,10 +88,18 @@ class Agent:
 
     def detect_idle(self):
         idle_seconds = get_idle_duration()
-        if idle_seconds <= 5:
+        if idle_seconds <= self.get_idle_interval():
             self.event.isIdle = False
         else:
             self.event.isIdle = True
+
+    def shutdown(self):
+        # self.upload()
+        logger.info("Shutting down")
+        InstanceManager.release_instance()
+        logging.info("Application shutdown successful")
+        print("Application shutdown successful")
+        time.sleep(1)
 
     def run(self):
         logger.info("Application Started")

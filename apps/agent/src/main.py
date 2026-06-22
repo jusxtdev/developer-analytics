@@ -1,9 +1,11 @@
+import logging
+
 from agent import Agent
 from services.buffer import Buffer
-from services.config import ConfigManager
 from services.event import Event
 from services.instance_manager import InstanceManager
 from services.session import Session
+from utils.config import ConfigManager
 from utils.logger_config import setup_logging
 
 
@@ -22,9 +24,10 @@ def main():
 
     agent.initialize()
 
-    agent.run()
-
-    InstanceManager.release_instance()
+    try:
+        agent.run()
+    except KeyboardInterrupt:
+        agent.shutdown()
 
 
 main()
