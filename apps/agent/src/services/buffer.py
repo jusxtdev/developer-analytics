@@ -6,7 +6,7 @@ logger = logging.getLogger(__name__)
 
 
 class Buffer:
-    def __init__(self, file_path="buffer.json"):
+    def __init__(self, file_path="src/data/buffer.json"):
         self.buffer_path = file_path
         self.create_buffer_file()
 

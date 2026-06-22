@@ -7,9 +7,9 @@ import psutil
 from win32 import win32gui
 from win32 import win32process
 
-from buffer import Buffer
-from event import Event
-from session import Session
+from services.buffer import Buffer
+from services.event import Event
+from services.session import Session
 
 logger = logging.getLogger(__name__)
 

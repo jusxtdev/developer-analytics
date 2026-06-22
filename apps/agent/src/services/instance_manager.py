@@ -7,7 +7,7 @@ logger = logging.getLogger(__name__)
 
 class InstanceManager:
     @staticmethod
-    def check_instance(lock_file_path="agent.lock"):
+    def check_instance(lock_file_path="src/data/agent.lock"):
         try:
             if os.path.exists(lock_file_path):
                 print("Process already running")
@@ -22,7 +22,7 @@ class InstanceManager:
             logger.info(f"Failed to create lock file {e}")
             sys.exit(1)
 
-    def release_instance(lock_file_path="agent.lock"):
+    def release_instance(lock_file_path="src/data/agent.lock"):
         try:
             if os.path.exists(lock_file_path):
                 os.remove(lock_file_path)

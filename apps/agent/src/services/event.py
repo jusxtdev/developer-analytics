@@ -1,4 +1,4 @@
-from buffer import Buffer
+from services.buffer import Buffer
 
 
 class Event:

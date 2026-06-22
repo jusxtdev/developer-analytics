@@ -1,10 +1,11 @@
 from agent import Agent
-from buffer import Buffer
-from config import ConfigManager
-from event import Event
-from instance_manager import InstanceManager
-from logger_config import setup_logging
-from session import Session
+from services.buffer import Buffer
+from services.config import ConfigManager
+from services.event import Event
+from services.instance_manager import InstanceManager
+from utils.logger_config import setup_logging
+from services.session import Session
+
 
 
 def main():
