@@ -1,2 +1,9 @@
+# Logs
+*.log
+log.txt
+
+# Runtime data
 buffer.json
+
+# lock file
 agent.lock
