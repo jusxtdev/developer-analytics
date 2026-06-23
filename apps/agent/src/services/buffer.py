@@ -42,3 +42,13 @@ class Buffer:
             with open(self.buffer_path, "w") as f:
                 json.dump([], f)
                 logger.info("Cleared Buffer file")
+
+    def get_buffer(self):
+        data = []
+        try:
+            with open(self.buffer_path, "r") as f:
+                data = json.load(f)
+            return data
+        except json.JSONDecodeError:
+            logger.info("Buffer not found")
+            

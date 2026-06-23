@@ -19,7 +19,7 @@ app.use("/api", rootRouter);
 // All route catcher for undefined routees
 app.all("/{*splat}", (_req: Request, res: Response) => {
 //   throw new AppError(`${req.method} ${req.originalUrl} Not found`, 404);
-    res.send("Not implemented")
+    res.status(404).send("Not implemented")
 });
 
 // gloabal error handler

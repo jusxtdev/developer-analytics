@@ -22,3 +22,11 @@ class Event:
     def updateState(self):
         self.last_title = self.title
         self.last_application = self.last_application
+        
+    def get_event(self):
+        return {
+            "timestamp" : self.timestamp,
+            "title" : self.title,
+            "application" : self.application,
+            "isIdle" : self.isIdle
+        }

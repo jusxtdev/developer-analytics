@@ -12,6 +12,7 @@ from services.event import Event
 from services.instance_manager import InstanceManager
 from services.session import Session
 from utils.idle import get_idle_duration
+from services.batchRequest import sendBatch
 
 logger = logging.getLogger(__name__)
 
@@ -81,6 +82,7 @@ class Agent:
     def upload(self, now):
         # Upload every 30 seconds
         if now - self.session.last_upload_time >= self.get_upload_interval():
+            sendBatch(self.buffer.get_buffer())
             self.session.last_upload_time = now
             self.buffer.clear_buffer()
             print("Upload")

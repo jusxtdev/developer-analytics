@@ -9,6 +9,7 @@ dependencies = [
     "pyautogui>=0.9.54",
     "pydantic>=2.13.4",
     "pywin32>=312",
+    "requests>=2.34.2",
 ]
 
 [dependency-groups]

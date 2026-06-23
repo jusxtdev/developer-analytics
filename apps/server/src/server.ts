@@ -1,5 +1,6 @@
 import { app, PORT } from "./app.js";
 import { disconnectDB } from "./config/db.js";
+import './worker/event.worker.js'
 
 const server = app.listen(PORT, () =>
   console.log(`Server running on PORT ${PORT}`),
