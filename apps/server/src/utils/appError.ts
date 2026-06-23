@@ -23,7 +23,7 @@ export class AppError extends Error {
         return new AppError(message, 404)
     }
 
-    static internal(message: string) {
+    static internal(message: string = "Internal Server Error") {
         return new AppError(message, 500, false)
     }
 }
