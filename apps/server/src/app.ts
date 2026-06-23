@@ -2,6 +2,8 @@ import { config } from "dotenv";
 import express, {Request, Response} from "express";
 import { connectDB } from "./config/db.js";
 import rootRouter from "./routes/root.router.js";
+import { AppError } from "./utils/appError.js";
+import { errorHandler } from "./middleware/error.middleware.js";
 const app = express();
 
 config();
@@ -17,12 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", rootRouter);
 
 // All route catcher for undefined routees
-app.all("/{*splat}", (_req: Request, res: Response) => {
+app.all("/{*splat}", (_req: Request, _res: Response) => {
 //   throw new AppError(`${req.method} ${req.originalUrl} Not found`, 404);
-    res.status(404).send("Not implemented")
+    throw new AppError("Not Implemented", 404, false)
 });
 
 // gloabal error handler
-// app.use(errorHandler);
+app.use(errorHandler);
 
 export { app, PORT };
