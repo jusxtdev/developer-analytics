@@ -1,7 +1,8 @@
 import { prisma } from "@/config/db.js";
 import { Prisma } from "@/generated/prisma/client.js";
+import { AppError } from "@/utils/appError.js";
 
-const userExists = async (email: string) => {
+const findUserByEmail = async (email: string) => {
   try {
     const user = await prisma.user.findUniqueOrThrow({
       where: {
@@ -28,13 +29,25 @@ const createUser = async (name: string, email: string, hashedPass: string) => {
         email: email,
         password: hashedPass,
       },
+      select : {
+        id : true,
+        name : true,
+        email : true,
+        createdAt : true
+      }
     });
     return newuser;
   } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError){
+      if (e.code === "P2002"){
+        // user already exists
+        throw new AppError("User already exists", 409, false)
+      }
+    }
     console.error(e);
-    return null;
+    throw AppError.internal()
   }
 };
 
-const UserService = { userExists, createUser };
+const UserService = { findUserByEmail, createUser };
 export default UserService;
