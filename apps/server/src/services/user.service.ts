@@ -1,4 +1,4 @@
-import { prisma } from "@/config/db.js";
+ import { prisma } from "@/config/db.js";
 import { Prisma } from "@/generated/prisma/client.js";
 import { AppError } from "@/utils/appError.js";
 
@@ -8,6 +8,13 @@ const findUserByEmail = async (email: string) => {
       where: {
         email: email,
       },
+      select : {
+        id : true,
+        name : true,
+        email : true,
+        password : true,
+        createdAt : true
+      }
     });
     return user;
   } catch (error) {
@@ -21,7 +28,7 @@ const findUserByEmail = async (email: string) => {
   }
 };
 
-const createUser = async (name: string, email: string, hashedPass: string) => {
+const signupUser = async (name: string, email: string, hashedPass: string) => {
   try {
     const newuser = await prisma.user.create({
       data: {
@@ -49,5 +56,6 @@ const createUser = async (name: string, email: string, hashedPass: string) => {
   }
 };
 
-const UserService = { findUserByEmail, createUser };
+
+const UserService = { findUserByEmail, signupUser };
 export default UserService;

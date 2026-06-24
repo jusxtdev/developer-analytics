@@ -5,6 +5,10 @@ import express from "express";
 
 const router = express.Router();
 
-router.post("/", validate(UserSchema.createUser), AuthController.signup);
+router.post("/signup", validate(UserSchema.signUp), AuthController.signup);
+
+router.post("/login", validate(UserSchema.logIn), AuthController.login)
+
+router.post("/logout", AuthController.logout)
 
 export default router;
